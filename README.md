@@ -8,6 +8,6 @@
     - Crear: POST /tasks  OK
     - Editar: PUT /tasks/{id}  OK
     - Eliminar: DELETE /tasks/{id}  OK
-    - Marcar completado:  PUT /tasks/{id}?state=completed
-    - Marcar pendiente: PUT /tasks/{id}?state=pending
+    - Marcar completado:  PUT /tasks/{id}?state=completed OK
+    - Marcar pendiente: PUT /tasks/{id}?state=pending OK
     

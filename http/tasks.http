@@ -16,11 +16,11 @@ Content-Type: application/json
 }
 
 ### Obtener un elemento
-GET http://localhost:3000/tasks/5
+GET http://localhost:3000/tasks/2
 Content-Type: application/json
 
 ### 
-GET http://localhost:3000/tasks/2
+GET http://localhost:3000/tasks/5
 Content-Type: application/json
 
 ### Modificar tarea
@@ -46,7 +46,7 @@ DELETE http://localhost:3000/tasks/1
 DELETE http://localhost:3000/tasks/5
 
 ###  Completado
-PUT http://localhost:3000/tasks/1?status=PENDING
+PUT http://localhost:3000/tasks/2?status=PENDING
 Content-Type: application/json
 
 {
@@ -60,7 +60,7 @@ Content-Type: application/json
     "status": "COMPLETED"
 }
 ###  Pendiente
-PUT http://localhost:3000/tasks/1?status=COMPLETED
+PUT http://localhost:3000/tasks/2?status=COMPLETED
 Content-Type: application/json
 
 {
