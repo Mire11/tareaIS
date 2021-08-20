@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 
 var jsonParser = bodyParser.json()
 //var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+var surrogateKey=1;
 var app = express();
 
 var tasks = []
@@ -16,7 +16,7 @@ app.get("/", (req, res, next) => {
 
 ///CREAR
 app.post("/tasks", jsonParser, (req, res, next) => {
-    req.body.id = tasks.length + 1;
+    req.body.id = surrogateKey++;
     req.body.status = "PENDING";
     tasks.push(req.body);
     res.send("OK");
@@ -24,22 +24,10 @@ app.post("/tasks", jsonParser, (req, res, next) => {
 
 ///OBTENER ELEMENTO
 app.get("/tasks/:taskId", (req, res) => {
-    const task = tasks.find(task => task.id = req.params.taskId);
-    if(tasks){
+    const task = tasks.find(task => task.id == req.params.taskId);
+    if(task){
         res.json(task);
     }else{
-        res.sendStatus(404);
-    }
-});
- /// MODIFICAR
- app.put("/tasks/:taskId", jsonParser, (req, res) => {
-    var task = tasks.find(task => task.id == req.params.taskId);
-    task.title = req.body.title;
-    task.detail = req.body.detail;
-
-    if(task) {
-        res.json(task);
-    }else {
         res.sendStatus(404);
     }
 });
@@ -61,14 +49,27 @@ app.delete("/tasks/:taskId", jsonParser, (req, res) => {
     }
 });
 
-app.put('/tasks/:taskId/status?', jsonParser, function(req, res) {
+///CAMBIAR ESTADO Y MODIFICAR
+app.put("/tasks/:taskId", jsonParser, function(req, res) {
     var task = tasks.find(task => task.id == req.params.taskId);
-    const status = req.query.status; 
-    if (status) {
-        task.status = req.body.status;
-        res.send(task);
-    } else {
-        res.send("PUT invoked with path variable: " + req.params.taskId + " and body: " + req.body);
+    const status = req.query.status;
+    if(task){
+        if (status) {
+            if(status=='PENDING'){
+                task.status = req.body.status;
+                res.json(task);
+            }else{
+                task.status = req.body.status;
+                res.json(task);
+            }
+        }
+        else{
+            task.title = req.body.title;
+            task.detail = req.body.detail;
+            res.json(task);
+        }
+    }else{
+        res.sendStatus(404);
     }
 });
 app.listen(3000, () => {
