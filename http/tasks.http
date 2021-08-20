@@ -23,7 +23,7 @@ GET http://localhost:3000/tasks/1
 Content-Type: application/json
 
 ### Modificar tarea
-PUT http://localhost:3000/tasks/2
+PUT http://localhost:3000/tasks/3
 Content-Type: application/json
 
 {
